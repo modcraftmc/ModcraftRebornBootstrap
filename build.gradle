@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.0'
+}
+
+group = 'fr.modcraftmc'
+version = '1.0-SNAPSHOT'
+
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://maven.modcraftmc.fr/releases"
+    }
+}
+
+dependencies {
+    implementation 'fr.modcraftmc:modcraft-api-client:1.1'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'fr.modcraftmc.bootstrap.ModcraftBootstrap'
+    }
+}
+
+shadowJar {
+    archiveBaseName.set('launcher')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
+
+jar.dependsOn(shadowJar)
