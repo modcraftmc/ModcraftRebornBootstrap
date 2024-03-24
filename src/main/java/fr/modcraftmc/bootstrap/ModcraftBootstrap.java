@@ -1,9 +1,12 @@
 package fr.modcraftmc.bootstrap;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 public class ModcraftBootstrap {
@@ -27,5 +30,9 @@ public class ModcraftBootstrap {
 
     public static URL getResource(String name) {
         return ModcraftBootstrap.class.getClassLoader().getResource(name);
+    }
+
+    public static File getLaunchPath() throws URISyntaxException {
+        return new File(ModcraftBootstrap.class.getProtectionDomain().getCodeSource().getLocation().toURI());
     }
 }

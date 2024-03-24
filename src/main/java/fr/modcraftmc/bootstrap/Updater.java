@@ -8,10 +8,7 @@ import fr.modcraftmc.api.models.LauncherInfo;
 
 import javax.swing.*;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.zip.ZipEntry;
@@ -217,15 +214,16 @@ public class Updater {
     }
 
     public void launchJar() {
-        ModcraftBootstrap.LOGGER.info("launching jar");
-
-        ProcessBuilder builder = new ProcessBuilder();
-        builder.directory(LAUNCHER_PATH);
-        builder.command(JAVA_PATH.getPath() + "/bin/java", "-jar", "launcher.jar");
         try {
+            ModcraftBootstrap.LOGGER.info("launching jar");
+
+            String bootstrapPath = ModcraftBootstrap.getLaunchPath().getPath();
+            ProcessBuilder builder = new ProcessBuilder();
+            builder.directory(LAUNCHER_PATH);
+            builder.command(JAVA_PATH.getPath() + "/bin/java", "-DbootstrapPath=" + bootstrapPath, "-jar", "launcher.jar");
             builder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
         }
 
         System.exit(0);
