@@ -74,6 +74,7 @@ public class Updater {
     private void extractJava() {
         ModcraftBootstrap.LOGGER.info("extracting java");
         ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("extraction de java");
+        ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateBottomText("");
         try {
             ZipInputStream zis = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(JAVA_ZIP)));
