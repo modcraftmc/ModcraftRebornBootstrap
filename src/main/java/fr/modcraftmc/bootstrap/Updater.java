@@ -24,6 +24,7 @@ public class Updater {
     public static File JAVA_PATH = new File(DEFAULT_PATH, "java");
     public static File JAVA_ZIP = new File(JAVA_PATH, "java.zip");
     public static File JAVA_EXE = new File(JAVA_PATH, "bin/java.exe");
+    public static File LOGS_PATH = new File(LAUNCHER_PATH, "logs");
 
     private final ModcraftApiClient apiClient = new ModcraftApiClient("https://api.modcraftmc.fr/v1/");
 
@@ -43,9 +44,7 @@ public class Updater {
         }
     }
 
-    public void update() {
-        ModcraftBootstrap.LOGGER.info("staring liteupdater");
-
+    public void update() {;
         LauncherInfo info = getLauncherInfo();
 
         if (!JAVA_EXE.exists()) {
@@ -73,7 +72,8 @@ public class Updater {
     }
 
     private void extractJava() {
-        ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("extracting java");
+        ModcraftBootstrap.LOGGER.info("extracting java");
+        ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("extraction de java");
         try {
             ZipInputStream zis = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(JAVA_ZIP)));
@@ -105,6 +105,7 @@ public class Updater {
                 }
             }
             zis.close();
+            JAVA_ZIP.delete();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -129,7 +130,7 @@ public class Updater {
     }
 
     public void downloadProgess(LauncherInfo info) {
-        ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("Mise à jour");
+        ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("Mise à jour du launcher");
         //ModcraftBootstrap.getBootstrapFrame().setProgressVisible();
         download(info.downloadUrl(), LAUNCHER_JAR.getPath());
     }
@@ -192,7 +193,7 @@ public class Updater {
     }
 
     public void downloadJava() {
-        ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("downloading java");
+        ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("téléchargement de java");
         //ModcraftBootstrap.getBootstrapFrame().setProgressVisible();
         download("https://download.modcraftmc.fr/java.zip", JAVA_ZIP.getPath());
     }
