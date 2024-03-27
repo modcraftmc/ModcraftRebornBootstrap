@@ -1,0 +1,8 @@
+/dist/
+/target/
+/Cargo.lock
+/.vscode/extensions.json
+/.idea/.gitignore
+/.idea/modcraftbootstrap.iml
+/.idea/modules.xml
+/.idea/vcs.xml
