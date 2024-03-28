@@ -23,7 +23,7 @@ public class Updater {
     public static File LAUNCHER_JAR = new File(LAUNCHER_PATH, "launcher.jar");
     public static File JAVA_PATH = new File(DEFAULT_PATH, "java");
     public static File JAVA_ZIP = new File(JAVA_PATH, "java.zip");
-    public static File JAVA_EXE = new File(JAVA_PATH, "bin/java.exe");
+    public static File JAVA_EXE = new File(JAVA_PATH, "bin/java" + (windows ? ".exe" : ""));
     public static File LOGS_PATH = new File(LAUNCHER_PATH, "logs");
 
     private final ModcraftApiClient apiClient = new ModcraftApiClient("https://api.modcraftmc.fr/v1/");
@@ -196,7 +196,7 @@ public class Updater {
     public void downloadJava() {
         ModcraftBootstrap.getBootstrapFrame().getBootstrapPanel().updateTopText("téléchargement de java");
         //ModcraftBootstrap.getBootstrapFrame().setProgressVisible();
-        download("https://download.modcraftmc.fr/java.zip", JAVA_ZIP.getPath());
+        download("https://download.modcraftmc.fr/java_" + (windows ? "win" : "linux") + ".zip", JAVA_ZIP.getPath());
     }
 
     public static InputStream catchForbidden(URL url) throws IOException
