@@ -218,7 +218,7 @@ public class Updater {
     public void launchJar() {
         try {
             ModcraftBootstrap.LOGGER.info("launching jar");
-
+            JAVA_EXE.setExecutable(true);
             String bootstrapPath = ModcraftBootstrap.getLaunchPath().getPath();
             ProcessBuilder builder = new ProcessBuilder();
             builder.directory(LAUNCHER_PATH);
