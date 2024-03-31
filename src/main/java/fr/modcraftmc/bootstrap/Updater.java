@@ -26,7 +26,7 @@ public class Updater {
     public static File JAVA_EXE = new File(JAVA_PATH, "bin/java" + (windows ? ".exe" : ""));
     public static File LOGS_PATH = new File(LAUNCHER_PATH, "logs");
 
-    private final ModcraftApiClient apiClient = new ModcraftApiClient("https://api.modcraftmc.fr/v1/");
+    private final ModcraftApiClient apiClient = new ModcraftApiClient("https://api.modcraftmc.fr/v1");
 
     static {
         try {
