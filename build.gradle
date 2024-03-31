@@ -21,7 +21,6 @@ repositories {
 
 dependencies {
     implementation 'fr.modcraftmc:modcraft-api-client:1.7-jdk8'
-    implementation group: 'it.sauronsoftware', name: 'junique', version: '1.0.4'
 }
 
 jar {
