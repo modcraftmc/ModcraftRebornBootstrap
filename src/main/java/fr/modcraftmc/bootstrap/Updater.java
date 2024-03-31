@@ -5,6 +5,7 @@ import fr.modcraftmc.api.ModcraftApiRequestsExecutor;
 import fr.modcraftmc.api.exception.ParsingException;
 import fr.modcraftmc.api.exception.RemoteException;
 import fr.modcraftmc.api.models.LauncherInfo;
+import it.sauronsoftware.junique.JUnique;
 
 import javax.swing.*;
 import java.io.*;
@@ -223,13 +224,18 @@ public class Updater {
             ProcessBuilder builder = new ProcessBuilder();
             builder.directory(LAUNCHER_PATH);
             builder.command(JAVA_PATH.getPath() + "/bin/java", "-DbootstrapPath=" + bootstrapPath, "-jar", "launcher.jar");
-            builder.start();
-        } catch (URISyntaxException | IOException e) {
+            Process process = builder.start();
+
+            ModcraftBootstrap.getBootstrapFrame().setVisible(false);
+
+            process.waitFor();
+
+            JUnique.releaseLock("modcraftlauncher");
+        } catch (URISyntaxException | IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        System.exit(0);
-
+        ModcraftBootstrap.LOGGER.info("bye");
     }
 
     private String getFileChecksum(MessageDigest digest, File file) throws IOException

@@ -16,10 +16,12 @@ repositories {
     maven {
         url "https://maven.modcraftmc.fr/releases"
     }
+    maven { url "https://raw.githubusercontent.com/terjedahl/junique/master/maven2"}
 }
 
 dependencies {
     implementation 'fr.modcraftmc:modcraft-api-client:1.7-jdk8'
+    implementation group: 'it.sauronsoftware', name: 'junique', version: '1.0.4'
 }
 
 jar {

@@ -1,6 +1,8 @@
 package fr.modcraftmc.bootstrap;
 
 import fr.modcraftmc.bootstrap.logger.LogManager;
+import it.sauronsoftware.junique.AlreadyLockedException;
+import it.sauronsoftware.junique.JUnique;
 
 import java.awt.*;
 import java.io.File;
@@ -17,6 +19,13 @@ public class ModcraftBootstrap {
 
     public static void main(String[] args) throws IOException, FontFormatException {
         LOGGER.info("Starting Modcraft Bootstrap");
+
+        try {
+            JUnique.acquireLock("modcraftlauncher", null);
+        } catch (AlreadyLockedException e) {
+            System.exit(0);
+        }
+
         bootstrapPanel = new BootstrapFrame();
         Thread updaterThread = new Thread(() -> {
             try {
