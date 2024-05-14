@@ -66,8 +66,10 @@ public class Updater {
     public LauncherInfo getLauncherInfo() {
         try {
             return apiClient.executeRequest(ModcraftApiRequestsExecutor.getLauncherInfo());
-        } catch (ParsingException | IOException | RemoteException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(ModcraftBootstrap.getBootstrapFrame(), "Une erreur est survenue: imposible de contacter l'API.");
+            System.exit(1);
+            throw new IllegalStateException("api is unreachable");
         }
     }
 
@@ -173,8 +175,6 @@ public class Updater {
                 }
             }
 
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
         } catch (IOException e2) {
             e2.printStackTrace();
         } finally {
@@ -230,6 +230,7 @@ public class Updater {
 
         ModcraftBootstrap.LOGGER.info("bye");
         System.exit(0);
+        Runtime.getRuntime().halt(0);
     }
 
     private String getFileChecksum(MessageDigest digest, File file) throws IOException
