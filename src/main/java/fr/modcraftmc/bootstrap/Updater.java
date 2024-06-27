@@ -2,8 +2,6 @@ package fr.modcraftmc.bootstrap;
 
 import fr.modcraftmc.api.ModcraftApiClient;
 import fr.modcraftmc.api.ModcraftApiRequestsExecutor;
-import fr.modcraftmc.api.exception.ParsingException;
-import fr.modcraftmc.api.exception.RemoteException;
 import fr.modcraftmc.api.models.LauncherInfo;
 
 import javax.swing.*;
@@ -110,7 +108,7 @@ public class Updater {
             zis.close();
             JAVA_ZIP.delete();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            ModcraftBootstrap.LOGGER.warning(e.getMessage());
         }
     }
 
@@ -126,7 +124,7 @@ public class Updater {
 
 
         } catch (NoSuchAlgorithmException | IOException e) {
-            e.printStackTrace();
+            ModcraftBootstrap.LOGGER.warning(e.getMessage());
         }
         return false;
 
@@ -176,7 +174,7 @@ public class Updater {
             }
 
         } catch (IOException e2) {
-            e2.printStackTrace();
+            ModcraftBootstrap.LOGGER.warning(e2.getMessage());
         } finally {
             if (in != null)
                 try {
@@ -225,7 +223,7 @@ public class Updater {
             builder.command(JAVA_PATH.getPath() + "/bin/java", "-DbootstrapPath=" + bootstrapPath, "-jar", "launcher.jar");
             Process process = builder.start();
         } catch (URISyntaxException | IOException e) {
-            throw new RuntimeException(e);
+            ModcraftBootstrap.LOGGER.warning(e.getMessage());
         }
 
         ModcraftBootstrap.LOGGER.info("bye");
